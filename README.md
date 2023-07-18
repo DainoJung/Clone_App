@@ -13,8 +13,8 @@
 
 ### 구현 화면
 
-<center>
+<div align="center">
   <img width="50%" src="https://github.com/DainoJung/fastcampus-flutter/assets/117745618/36d2d690-94df-4508-beaf-081f7e32d5e9"/>
-</center>
+</div>
 
   
