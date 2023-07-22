@@ -1,3 +1,5 @@
+[![Example CI](https://github.com/DainoJung/fastcampus-flutter/actions/workflows/ci.yml/badge.svg)](https://github.com/DainoJung/fastcampus-flutter/actions/workflows/ci.yml)
+
 # fastcampus-flutter
 
 ## shak_count_app
