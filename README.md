@@ -25,6 +25,7 @@
 >## 사용한 패키지
 - velocity_x
 - native_splash
+- timeago
 
 >## 배운 내용
 
