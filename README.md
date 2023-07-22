@@ -1,3 +1,5 @@
+[![Example CI](https://github.com/DainoJung/fastcampus-flutter/actions/workflows/ci.yml/badge.svg)](https://github.com/DainoJung/fastcampus-flutter/actions/workflows/ci.yml)
+
 # fastcampus-flutter
 
 ## shak_count_app
@@ -15,5 +17,20 @@
 <div align="center">
   <img width="50%" src="https://github.com/DainoJung/fastcampus-flutter/assets/117745618/36d2d690-94df-4508-beaf-081f7e32d5e9"/>
 </div>
+
+## Ttoss
+토스앱을 클론해서 만들었습니다.
+<br>
+
+>## 사용한 패키지
+- velocity_x
+- native_splash
+
+>## 배운 내용
+
+### clean code 작성
+- magic number를 최대한 사용하지 않는다.
+- 
+<br>
 
   
