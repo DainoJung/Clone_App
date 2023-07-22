@@ -18,4 +18,19 @@
   <img width="50%" src="https://github.com/DainoJung/fastcampus-flutter/assets/117745618/36d2d690-94df-4508-beaf-081f7e32d5e9"/>
 </div>
 
+# fastcampus-flutter
+
+## Ttoss
+토스앱을 클론해서 만들었습니다.
+<br>
+
+>## 패키지
+- velocity_x
+- native_splash
+
+>## 배운 내용
+- magic number를 최대한 사용하지 않는다.
+- 
+<br>
+
   
