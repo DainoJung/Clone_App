@@ -73,6 +73,7 @@ dependencies:
   freezed: ^2.3.4
   freezed_annotation: ^2.2.0
   json_annotation: ^4.8.0
+  timeago: ^3.5.0
 
 dev_dependencies:
   flutter_test:
@@ -116,6 +117,7 @@ flutter:
     - assets/image/flag/
     - assets/image/icon/
     - assets/image/illustration/
+    - assets/image/notification/
     - assets/image/splash/
     - assets/image/stock/
     
