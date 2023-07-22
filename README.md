@@ -22,11 +22,13 @@
 토스앱을 클론해서 만들었습니다.
 <br>
 
->## 패키지
+>## 사용한 패키지
 - velocity_x
 - native_splash
 
 >## 배운 내용
+
+### clean code 작성
 - magic number를 최대한 사용하지 않는다.
 - 
 <br>
