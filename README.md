@@ -18,8 +18,6 @@
   <img width="50%" src="https://github.com/DainoJung/fastcampus-flutter/assets/117745618/36d2d690-94df-4508-beaf-081f7e32d5e9"/>
 </div>
 
-# fastcampus-flutter
-
 ## Ttoss
 토스앱을 클론해서 만들었습니다.
 <br>
