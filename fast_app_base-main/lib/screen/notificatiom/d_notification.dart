@@ -6,8 +6,7 @@ import 'package:nav/enum/enum_nav_ani.dart';
 
 class NotificationDialog extends DialogWidget {
   final List<TtossNotification> notification;
-  final List com;
-  NotificationDialog(this.notification, this.com,
+  NotificationDialog(this.notification,
       //애니메이션 추가
       {super.key,
       super.animation = NavAni.Bottom});
