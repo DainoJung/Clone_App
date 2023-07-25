@@ -21,8 +21,12 @@ class BenefitItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             benefit.subTitle.text.size(13).white.make(),
-            heigh5,
-            benefit.title.text.color(context.appColors.blueText).size(13).bold.make(),
+            height5,
+            benefit.title.text
+                .color(context.appColors.blueText)
+                .size(13)
+                .bold
+                .make(),
           ],
         )
       ],

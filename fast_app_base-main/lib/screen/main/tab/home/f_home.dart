@@ -39,13 +39,13 @@ class HomeFragment extends StatelessWidget {
                         context.showSnackbar("토스뱅크를 눌렀어요");
                       },
                     ),
-                    heigh10,
+                    height10,
                     RoundedContainer(
                         child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         "자산".text.bold.white.make(),
-                        heigh5,
+                        height5,
                         ...bankAccounts
                             .map((e) => BankAccountWidget(e))
                             .toList(),

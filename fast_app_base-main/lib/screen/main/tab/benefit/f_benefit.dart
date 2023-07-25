@@ -21,11 +21,11 @@ class _BenefitFragmentState extends State<BenefitFragment> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          heigh30,
+          height30,
           '혜택'.text.white.bold.size(18).make(),
-          heigh30,
+          height30,
           const PointButton(point: 589),
-          heigh20,
+          height20,
           '혜택 더 받기'.text.white.bold.size(16).make(),
           ...benefitList
               .map((element) => BenefitItem(benefit: element))
