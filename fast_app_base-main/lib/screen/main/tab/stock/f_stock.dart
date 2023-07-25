@@ -109,7 +109,4 @@ class _StockFragmentState extends State<StockFragment>
           ],
         ),
       );
-  // Widget get myAccount => const Placeholder();
-
-  // Widget get myStocks => const Placeholder();
 }
