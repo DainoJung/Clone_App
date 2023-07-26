@@ -23,6 +23,7 @@
 <br>
 
 >## 사용한 패키지
+- get_x
 - velocity_x
 - native_splash
 - timeago
@@ -31,7 +32,9 @@
 
 ### clean code 작성
 - magic number를 최대한 사용하지 않는다.
-- 
+
+### 상태관리
+get_x를 통한 상태관리에 대해 배웠습니다.
 <br>
 
   
