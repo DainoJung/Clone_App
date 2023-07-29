@@ -26,6 +26,6 @@ class PopularStockItem extends StatelessWidget {
             .color(stock.getPriceColor(context))
             .make(),
       ],
-    ).pSymmetric(v: 25);
+    ).pSymmetric(v: 25 );
   }
 }
