@@ -24,6 +24,7 @@ class MyStockFragment extends StatelessWidget {
           children: [
             height20,
             '계좌'.text.make(),
+            height10,
             Row(
               children: [
                 '443원'.text.size(24).bold.make(),
