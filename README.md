@@ -27,11 +27,14 @@
 - velocity_x
 - native_splash
 - timeago
+- change_app_package_name
+- flutter_oss_licenses
 
 >## 배운 내용
 
 ### clean code 작성
 - magic number를 최대한 사용하지 않는다.
+- 규칙적인 파일 이름을 사용한다.
 
 ### 상태관리
 get_x를 통한 상태관리에 대해 배웠습니다.
