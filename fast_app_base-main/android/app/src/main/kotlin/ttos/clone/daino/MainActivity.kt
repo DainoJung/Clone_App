@@ -1,4 +1,4 @@
-package com.example.fast_app_base
+package ttos.clone.daino
 
 import io.flutter.embedding.android.FlutterActivity
 

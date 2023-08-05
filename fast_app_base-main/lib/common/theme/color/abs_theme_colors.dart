@@ -10,7 +10,9 @@ abstract class AbstractThemeColors {
 
   Color get veryBrightGrey => AppColors.brightGrey;
 
-  Color get drawerBg => const Color.fromARGB(255, 255, 255, 255);
+  // 테마 미적용 이슈로 칼라 변경
+  // Color get drawerBg => const Color.fromARGB(255, 255, 255, 255);
+  Color get drawerBg => const Color.fromARGB(255, 39, 39, 39);
 
   Color get scrollableItem => const Color.fromARGB(255, 57, 57, 57);
 

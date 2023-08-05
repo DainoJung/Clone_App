@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.fast_app_base">
+    package="ttos.clone.daino">
 
     <application
         android:name="${applicationName}"
