@@ -2,6 +2,7 @@ import 'package:fast_app_base/common/common.dart';
 import 'package:fast_app_base/common/widget/w_empty_expanded.dart';
 import 'package:fast_app_base/screen/notificatiom/s_notification.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class TtossAppBar extends StatefulWidget {
   static const double appBarHeight = 60;
@@ -58,7 +59,11 @@ class _TtossAppBarState extends State<TtossAppBar> {
                     ),
                   ))
               ],
-            ),
+            )
+                .animate()
+                .shake(duration: 2100.ms, hz: 3)
+                .then()
+                .fadeOut(duration: 1000.ms),
           ),
           width10,
         ],
