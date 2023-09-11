@@ -26,7 +26,7 @@ class LocalJson {
   }
 
   static Future<String> getJsonString(String filePath) async {
-    return await rootBundle.loadString('assets/$filePath');
+    return await rootBundle.loadString('assets/json/$filePath');
   }
 }
 
