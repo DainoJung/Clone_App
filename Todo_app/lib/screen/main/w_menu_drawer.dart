@@ -45,7 +45,8 @@ class _MenuDrawerState extends State<MenuDrawer> {
               padding: const EdgeInsets.only(top: 10),
               decoration: BoxDecoration(
                   borderRadius: const BorderRadius.only(
-                      topRight: Radius.circular(5), bottomRight: Radius.circular(5)),
+                      topRight: Radius.circular(5),
+                      bottomRight: Radius.circular(5)),
                   color: context.colors.background),
               child: isSmallScreen(context)
                   ? SingleChildScrollView(
@@ -106,7 +107,7 @@ class _MenuDrawerState extends State<MenuDrawer> {
             },
           ),
           const Line(),
-          isSmallScreen(context) ? const Height(10) : const EmptyExpanded(),
+          isSmallScreen(context) ? const Height(10) : spacer,
           MouseRegion(
             cursor: SystemMouseCursors.click,
             child: ModeSwitch(
@@ -174,13 +175,16 @@ class _MenuDrawerState extends State<MenuDrawer> {
                     DropdownButton<String>(
                       items: [
                         menu(currentLanguage),
-                        menu(Language.values.where((element) => element != currentLanguage).first),
+                        menu(Language.values
+                            .where((element) => element != currentLanguage)
+                            .first),
                       ],
                       onChanged: (value) async {
                         if (value == null) {
                           return;
                         }
-                        await context.setLocale(Language.find(value.toLowerCase()).locale);
+                        await context.setLocale(
+                            Language.find(value.toLowerCase()).locale);
                       },
                       value: describeEnum(currentLanguage).capitalizeFirst,
                       underline: const SizedBox.shrink(),
@@ -234,7 +238,8 @@ class _MenuWidget extends StatelessWidget {
   final String text;
   final Function() onTap;
 
-  const _MenuWidget(this.text, {Key? key, required this.onTap}) : super(key: key);
+  const _MenuWidget(this.text, {Key? key, required this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
