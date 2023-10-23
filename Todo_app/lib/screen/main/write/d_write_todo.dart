@@ -5,11 +5,14 @@ import 'package:fast_app_base/common/util/app_keyboard_util.dart';
 import 'package:fast_app_base/common/widget/scaffold/bottom_dialog_scaffold.dart';
 import 'package:fast_app_base/common/widget/w_round_button.dart';
 import 'package:fast_app_base/common/widget/w_rounded_container.dart';
+import 'package:fast_app_base/data/memory/v_todo.dart';
+import 'package:fast_app_base/screen/main/write/vo_write_to_result.dart';
 import 'package:flutter/material.dart';
 import 'package:nav/dialog/dialog.dart';
 
-class WriteTodoDialog extends DialogWidget {
-  WriteTodoDialog({super.key});
+class WriteTodoDialog extends DialogWidget<WriteTodoResult> {
+  final Todo? todoForEdit;
+  WriteTodoDialog({this.todoForEdit, super.key});
 
   @override
   DialogState<WriteTodoDialog> createState() => _WriteTodoDialogState();
@@ -20,6 +23,15 @@ class _WriteTodoDialogState extends DialogState<WriteTodoDialog>
   DateTime selectedDate = DateTime.now();
   final textController = TextEditingController();
   final node = FocusNode();
+
+  @override
+  void initState() {
+    if (widget.todoForEdit != null) {
+      selectedDate = widget.todoForEdit!.dueDate;
+      textController.text = widget.todoForEdit!.title;
+    }
+    super.initState();
+  }
 
   @override
   FutureOr<void> afterFirstLayout(BuildContext context) {
@@ -53,8 +65,12 @@ class _WriteTodoDialogState extends DialogState<WriteTodoDialog>
                   controller: textController,
                 )),
                 RoundButton(
-                  text: '추가',
-                  onTap: () {},
+                  text: isEditMode ? '완료' : '추가',
+                  onTap: () {
+                    widget.hide(
+                      WriteTodoResult(selectedDate, textController.text),
+                    );
+                  },
                 )
               ],
             )
@@ -63,6 +79,8 @@ class _WriteTodoDialogState extends DialogState<WriteTodoDialog>
       ),
     );
   }
+
+  bool get isEditMode => widget.todoForEdit != null;
 
   void _selectDate() async {
     final data = await showDatePicker(

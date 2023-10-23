@@ -168,14 +168,17 @@ class ScaffoldMessenger extends StatefulWidget {
 /// ancestor.
 ///
 /// Typically obtained via [ScaffoldMessenger.of].
-class ScaffoldMessengerState extends State<ScaffoldMessenger> with TickerProviderStateMixin {
+class ScaffoldMessengerState extends State<ScaffoldMessenger>
+    with TickerProviderStateMixin {
   final LinkedHashSet<TransparentScaffoldState> _scaffolds =
       LinkedHashSet<TransparentScaffoldState>();
-  final Queue<ScaffoldFeatureController<MaterialBanner, MaterialBannerClosedReason>>
-      _materialBanners =
-      Queue<ScaffoldFeatureController<MaterialBanner, MaterialBannerClosedReason>>();
+  final Queue<
+      ScaffoldFeatureController<MaterialBanner,
+          MaterialBannerClosedReason>> _materialBanners = Queue<
+      ScaffoldFeatureController<MaterialBanner, MaterialBannerClosedReason>>();
   AnimationController? _materialBannerController;
-  final Queue<ScaffoldFeatureController<SnackBar, SnackBarClosedReason>> _snackBars =
+  final Queue<ScaffoldFeatureController<SnackBar, SnackBarClosedReason>>
+      _snackBars =
       Queue<ScaffoldFeatureController<SnackBar, SnackBarClosedReason>>();
   AnimationController? _snackBarController;
   Timer? _snackBarTimer;
@@ -183,7 +186,8 @@ class ScaffoldMessengerState extends State<ScaffoldMessenger> with TickerProvide
 
   @override
   void didChangeDependencies() {
-    final bool accessibleNavigation = MediaQuery.accessibleNavigationOf(context);
+    final bool accessibleNavigation =
+        MediaQuery.accessibleNavigationOf(context);
     // If we transition from accessible navigation to non-accessible navigation
     // and there is a SnackBar that would have timed out that has already
     // completed its timer, dismiss that SnackBar. If the timer hasn't finished
@@ -279,7 +283,8 @@ class ScaffoldMessengerState extends State<ScaffoldMessenger> with TickerProvide
   /// ** See code in examples/api/lib/material/scaffold/scaffold_messenger_state.show_snack_bar.1.dart **
   /// {@end-tool}
   ///
-  ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showSnackBar(SnackBar snackBar) {
+  ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showSnackBar(
+      SnackBar snackBar) {
     assert(
       _scaffolds.isNotEmpty,
       'ScaffoldMessenger.showSnackBar was called, but there are currently no '
@@ -313,9 +318,11 @@ class ScaffoldMessengerState extends State<ScaffoldMessenger> with TickerProvide
       assert(() {
         if (exception is FlutterError) {
           final String summary = exception.diagnostics.first.toDescription();
-          if (summary == 'setState() or markNeedsBuild() called during build.') {
+          if (summary ==
+              'setState() or markNeedsBuild() called during build.') {
             final List<DiagnosticsNode> information = <DiagnosticsNode>[
-              ErrorSummary('The showSnackBar() method cannot be called during build.'),
+              ErrorSummary(
+                  'The showSnackBar() method cannot be called during build.'),
               ErrorDescription(
                 'The showSnackBar() method was called during build, which is '
                 'prohibited as showing snack bars requires updating state. Updating '
@@ -373,11 +380,13 @@ class ScaffoldMessengerState extends State<ScaffoldMessenger> with TickerProvide
   ///
   /// The removed snack bar does not run its normal exit animation. If there are
   /// any queued snack bars, they begin their entrance animation immediately.
-  void removeCurrentSnackBar({SnackBarClosedReason reason = SnackBarClosedReason.remove}) {
+  void removeCurrentSnackBar(
+      {SnackBarClosedReason reason = SnackBarClosedReason.remove}) {
     if (_snackBars.isEmpty) {
       return;
     }
-    final Completer<SnackBarClosedReason> completer = _snackBars.first._completer;
+    final Completer<SnackBarClosedReason> completer =
+        _snackBars.first._completer;
     if (!completer.isCompleted) {
       completer.complete(reason);
     }
@@ -390,11 +399,14 @@ class ScaffoldMessengerState extends State<ScaffoldMessenger> with TickerProvide
   /// Removes the current [SnackBar] by running its normal exit animation.
   ///
   /// The closed completer is called after the animation is complete.
-  void hideCurrentSnackBar({SnackBarClosedReason reason = SnackBarClosedReason.hide}) {
-    if (_snackBars.isEmpty || _snackBarController!.status == AnimationStatus.dismissed) {
+  void hideCurrentSnackBar(
+      {SnackBarClosedReason reason = SnackBarClosedReason.hide}) {
+    if (_snackBars.isEmpty ||
+        _snackBarController!.status == AnimationStatus.dismissed) {
       return;
     }
-    final Completer<SnackBarClosedReason> completer = _snackBars.first._completer;
+    final Completer<SnackBarClosedReason> completer =
+        _snackBars.first._completer;
     if (_accessibleNavigation!) {
       _snackBarController!.value = 0.0;
       completer.complete(reason);
@@ -413,11 +425,12 @@ class ScaffoldMessengerState extends State<ScaffoldMessenger> with TickerProvide
   /// Removes all the snackBars currently in queue by clearing the queue
   /// and running normal exit animation on the current snackBar.
   void clearSnackBars() {
-    if (_snackBars.isEmpty || _snackBarController!.status == AnimationStatus.dismissed) {
+    if (_snackBars.isEmpty ||
+        _snackBarController!.status == AnimationStatus.dismissed) {
       return;
     }
-    final ScaffoldFeatureController<SnackBar, SnackBarClosedReason> currentSnackbar =
-        _snackBars.first;
+    final ScaffoldFeatureController<SnackBar, SnackBarClosedReason>
+        currentSnackbar = _snackBars.first;
     _snackBars.clear();
     _snackBars.add(currentSnackbar);
     hideCurrentSnackBar();
@@ -448,25 +461,29 @@ class ScaffoldMessengerState extends State<ScaffoldMessenger> with TickerProvide
   ///
   /// ** See code in examples/api/lib/material/scaffold/scaffold_messenger_state.show_material_banner.0.dart **
   /// {@end-tool}
-  ScaffoldFeatureController<MaterialBanner, MaterialBannerClosedReason> showMaterialBanner(
-      MaterialBanner materialBanner) {
+  ScaffoldFeatureController<MaterialBanner, MaterialBannerClosedReason>
+      showMaterialBanner(MaterialBanner materialBanner) {
     assert(
       _scaffolds.isNotEmpty,
       'ScaffoldMessenger.showMaterialBanner was called, but there are currently no '
       'descendant Scaffolds to present to.',
     );
-    _materialBannerController ??= MaterialBanner.createAnimationController(vsync: this)
-      ..addStatusListener(_handleMaterialBannerStatusChanged);
+    _materialBannerController ??=
+        MaterialBanner.createAnimationController(vsync: this)
+          ..addStatusListener(_handleMaterialBannerStatusChanged);
     if (_materialBanners.isEmpty) {
       assert(_materialBannerController!.isDismissed);
       _materialBannerController!.forward();
     }
-    late ScaffoldFeatureController<MaterialBanner, MaterialBannerClosedReason> controller;
-    controller = ScaffoldFeatureController<MaterialBanner, MaterialBannerClosedReason>._(
+    late ScaffoldFeatureController<MaterialBanner, MaterialBannerClosedReason>
+        controller;
+    controller =
+        ScaffoldFeatureController<MaterialBanner, MaterialBannerClosedReason>._(
       // We provide a fallback key so that if back-to-back material banners happen to
       // match in structure, material ink splashes and highlights don't survive
       // from one to the next.
-      materialBanner.withAnimation(_materialBannerController!, fallbackKey: UniqueKey()),
+      materialBanner.withAnimation(_materialBannerController!,
+          fallbackKey: UniqueKey()),
       Completer<MaterialBannerClosedReason>(),
       () {
         assert(_materialBanners.first == controller);
@@ -511,7 +528,8 @@ class ScaffoldMessengerState extends State<ScaffoldMessenger> with TickerProvide
     if (_materialBanners.isEmpty) {
       return;
     }
-    final Completer<MaterialBannerClosedReason> completer = _materialBanners.first._completer;
+    final Completer<MaterialBannerClosedReason> completer =
+        _materialBanners.first._completer;
     if (!completer.isCompleted) {
       completer.complete(reason);
     }
@@ -529,7 +547,8 @@ class ScaffoldMessengerState extends State<ScaffoldMessenger> with TickerProvide
         _materialBannerController!.status == AnimationStatus.dismissed) {
       return;
     }
-    final Completer<MaterialBannerClosedReason> completer = _materialBanners.first._completer;
+    final Completer<MaterialBannerClosedReason> completer =
+        _materialBanners.first._completer;
     if (_accessibleNavigation!) {
       _materialBannerController!.value = 0.0;
       completer.complete(reason);
@@ -573,7 +592,8 @@ class ScaffoldMessengerState extends State<ScaffoldMessenger> with TickerProvide
                   _snackBarController!.status == AnimationStatus.completed,
             );
             // Look up MediaQuery again in case the setting changed.
-            if (snackBar.action != null && MediaQuery.accessibleNavigationOf(context)) {
+            if (snackBar.action != null &&
+                MediaQuery.accessibleNavigationOf(context)) {
               return;
             }
             hideCurrentSnackBar(reason: SnackBarClosedReason.timeout);
@@ -616,7 +636,8 @@ class _ScaffoldMessengerScope extends InheritedWidget {
 /// when a running [FloatingActionButtonLocation] transition is interrupted by a new transition.
 @immutable
 class _TransitionSnapshotFabLocation extends FloatingActionButtonLocation {
-  const _TransitionSnapshotFabLocation(this.begin, this.end, this.animator, this.progress);
+  const _TransitionSnapshotFabLocation(
+      this.begin, this.end, this.animator, this.progress);
 
   final FloatingActionButtonLocation begin;
   final FloatingActionButtonLocation end;
@@ -697,8 +718,10 @@ class ScaffoldGeometry {
     Rect? floatingActionButtonArea,
   }) {
     return ScaffoldGeometry(
-      bottomNavigationBarTop: bottomNavigationBarTop ?? this.bottomNavigationBarTop,
-      floatingActionButtonArea: floatingActionButtonArea ?? this.floatingActionButtonArea,
+      bottomNavigationBarTop:
+          bottomNavigationBarTop ?? this.bottomNavigationBarTop,
+      floatingActionButtonArea:
+          floatingActionButtonArea ?? this.floatingActionButtonArea,
     );
   }
 }
@@ -732,7 +755,8 @@ class _ScaffoldGeometryNotifier extends ChangeNotifier
     Rect? floatingActionButtonArea,
     double? floatingActionButtonScale,
   }) {
-    this.floatingActionButtonScale = floatingActionButtonScale ?? this.floatingActionButtonScale;
+    this.floatingActionButtonScale =
+        floatingActionButtonScale ?? this.floatingActionButtonScale;
     geometry = geometry.copyWith(
       bottomNavigationBarTop: bottomNavigationBarTop,
       floatingActionButtonArea: floatingActionButtonArea,
@@ -781,8 +805,8 @@ class _BodyBoxConstraints extends BoxConstraints {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(super.hashCode, materialBannerHeight, bottomWidgetsHeight, appBarHeight);
+  int get hashCode => Object.hash(
+      super.hashCode, materialBannerHeight, bottomWidgetsHeight, appBarHeight);
 }
 
 // Used when Scaffold.extendBody is true to wrap the scaffold's body in a MediaQuery
@@ -810,16 +834,20 @@ class _BodyBuilder extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        final _BodyBoxConstraints bodyConstraints = constraints as _BodyBoxConstraints;
+        final _BodyBoxConstraints bodyConstraints =
+            constraints as _BodyBoxConstraints;
         final MediaQueryData metrics = MediaQuery.of(context);
 
         final double bottom = extendBody
-            ? math.max(metrics.padding.bottom, bodyConstraints.bottomWidgetsHeight)
+            ? math.max(
+                metrics.padding.bottom, bodyConstraints.bottomWidgetsHeight)
             : metrics.padding.bottom;
 
         final double top = extendBodyBehindAppBar
-            ? math.max(metrics.padding.top,
-                bodyConstraints.appBarHeight + bodyConstraints.materialBannerHeight)
+            ? math.max(
+                metrics.padding.top,
+                bodyConstraints.appBarHeight +
+                    bodyConstraints.materialBannerHeight)
             : metrics.padding.top;
 
         return MediaQuery(
@@ -880,14 +908,16 @@ class _ScaffoldLayout extends MultiChildLayoutDelegate {
     // in this case the app bar appears _after_ the body in the stacking order,
     // so the app bar's shadow is drawn on top of the body.
 
-    final BoxConstraints fullWidthConstraints = looseConstraints.tighten(width: size.width);
+    final BoxConstraints fullWidthConstraints =
+        looseConstraints.tighten(width: size.width);
     final double bottom = size.height;
     double contentTop = 0.0;
     double bottomWidgetsHeight = 0.0;
     double appBarHeight = 0.0;
 
     if (hasChild(_ScaffoldSlot.appBar)) {
-      appBarHeight = layoutChild(_ScaffoldSlot.appBar, fullWidthConstraints).height;
+      appBarHeight =
+          layoutChild(_ScaffoldSlot.appBar, fullWidthConstraints).height;
       contentTop = extendBodyBehindAppBar ? 0.0 : appBarHeight;
       positionChild(_ScaffoldSlot.appBar, Offset.zero);
     }
@@ -895,10 +925,12 @@ class _ScaffoldLayout extends MultiChildLayoutDelegate {
     double? bottomNavigationBarTop;
     if (hasChild(_ScaffoldSlot.bottomNavigationBar)) {
       final double bottomNavigationBarHeight =
-          layoutChild(_ScaffoldSlot.bottomNavigationBar, fullWidthConstraints).height;
+          layoutChild(_ScaffoldSlot.bottomNavigationBar, fullWidthConstraints)
+              .height;
       bottomWidgetsHeight += bottomNavigationBarHeight;
       bottomNavigationBarTop = math.max(0.0, bottom - bottomWidgetsHeight);
-      positionChild(_ScaffoldSlot.bottomNavigationBar, Offset(0.0, bottomNavigationBarTop));
+      positionChild(_ScaffoldSlot.bottomNavigationBar,
+          Offset(0.0, bottomNavigationBarTop));
     }
 
     if (hasChild(_ScaffoldSlot.persistentFooter)) {
@@ -909,13 +941,14 @@ class _ScaffoldLayout extends MultiChildLayoutDelegate {
       final double persistentFooterHeight =
           layoutChild(_ScaffoldSlot.persistentFooter, footerConstraints).height;
       bottomWidgetsHeight += persistentFooterHeight;
-      positionChild(
-          _ScaffoldSlot.persistentFooter, Offset(0.0, math.max(0.0, bottom - bottomWidgetsHeight)));
+      positionChild(_ScaffoldSlot.persistentFooter,
+          Offset(0.0, math.max(0.0, bottom - bottomWidgetsHeight)));
     }
 
     Size materialBannerSize = Size.zero;
     if (hasChild(_ScaffoldSlot.materialBanner)) {
-      materialBannerSize = layoutChild(_ScaffoldSlot.materialBanner, fullWidthConstraints);
+      materialBannerSize =
+          layoutChild(_ScaffoldSlot.materialBanner, fullWidthConstraints);
       positionChild(_ScaffoldSlot.materialBanner, Offset(0.0, appBarHeight));
 
       // Push content down only if elevation is 0.
@@ -935,8 +968,10 @@ class _ScaffoldLayout extends MultiChildLayoutDelegate {
 
       if (extendBody) {
         bodyMaxHeight += bottomWidgetsHeight;
-        bodyMaxHeight = clampDouble(bodyMaxHeight, 0.0, looseConstraints.maxHeight - contentTop);
-        assert(bodyMaxHeight <= math.max(0.0, looseConstraints.maxHeight - contentTop));
+        bodyMaxHeight = clampDouble(
+            bodyMaxHeight, 0.0, looseConstraints.maxHeight - contentTop);
+        assert(bodyMaxHeight <=
+            math.max(0.0, looseConstraints.maxHeight - contentTop));
       }
 
       final BoxConstraints bodyConstraints = _BodyBoxConstraints(
@@ -984,20 +1019,23 @@ class _ScaffoldLayout extends MultiChildLayoutDelegate {
         maxWidth: fullWidthConstraints.maxWidth,
         maxHeight: math.max(0.0, contentBottom - contentTop),
       );
-      bottomSheetSize = layoutChild(_ScaffoldSlot.bottomSheet, bottomSheetConstraints);
+      bottomSheetSize =
+          layoutChild(_ScaffoldSlot.bottomSheet, bottomSheetConstraints);
       positionChild(
           _ScaffoldSlot.bottomSheet,
-          Offset(
-              (size.width - bottomSheetSize.width) / 2.0, contentBottom - bottomSheetSize.height));
+          Offset((size.width - bottomSheetSize.width) / 2.0,
+              contentBottom - bottomSheetSize.height));
     }
 
     late Rect floatingActionButtonRect;
     if (hasChild(_ScaffoldSlot.floatingActionButton)) {
-      final Size fabSize = layoutChild(_ScaffoldSlot.floatingActionButton, looseConstraints);
+      final Size fabSize =
+          layoutChild(_ScaffoldSlot.floatingActionButton, looseConstraints);
 
       // To account for the FAB position being changed, we'll animate between
       // the old and new positions.
-      final ScaffoldPrelayoutGeometry currentGeometry = ScaffoldPrelayoutGeometry(
+      final ScaffoldPrelayoutGeometry currentGeometry =
+          ScaffoldPrelayoutGeometry(
         bottomSheetSize: bottomSheetSize,
         contentBottom: contentBottom,
 
@@ -1026,7 +1064,8 @@ class _ScaffoldLayout extends MultiChildLayoutDelegate {
     }
 
     if (hasChild(_ScaffoldSlot.snackBar)) {
-      final bool hasCustomWidth = snackBarWidth != null && snackBarWidth! < size.width;
+      final bool hasCustomWidth =
+          snackBarWidth != null && snackBarWidth! < size.width;
       if (snackBarSize == Size.zero) {
         snackBarSize = layoutChild(
           _ScaffoldSlot.snackBar,
@@ -1044,13 +1083,15 @@ class _ScaffoldLayout extends MultiChildLayoutDelegate {
         // no FAB, make sure we account for safe space when the SnackBar is
         // floating.
         final double safeYOffsetBase = size.height - minViewPadding.bottom;
-        snackBarYOffsetBase =
-            isSnackBarFloating ? math.min(contentBottom, safeYOffsetBase) : contentBottom;
+        snackBarYOffsetBase = isSnackBarFloating
+            ? math.min(contentBottom, safeYOffsetBase)
+            : contentBottom;
       }
 
-      final double xOffset = hasCustomWidth ? (size.width - snackBarWidth!) / 2 : 0.0;
-      positionChild(
-          _ScaffoldSlot.snackBar, Offset(xOffset, snackBarYOffsetBase - snackBarSize.height));
+      final double xOffset =
+          hasCustomWidth ? (size.width - snackBarWidth!) / 2 : 0.0;
+      positionChild(_ScaffoldSlot.snackBar,
+          Offset(xOffset, snackBarYOffsetBase - snackBarSize.height));
 
       assert(() {
         // Whether a floating SnackBar has been offset too high.
@@ -1059,7 +1100,8 @@ class _ScaffoldLayout extends MultiChildLayoutDelegate {
         // if we assert sooner the SnackBar is visible because its defaults position is (0,0) and
         // it can cause confusion to the user as the error message states that the SnackBar is off screen.
         if (isSnackBarFloating) {
-          final bool snackBarVisible = (snackBarYOffsetBase - snackBarSize.height) >= 0;
+          final bool snackBarVisible =
+              (snackBarYOffsetBase - snackBarSize.height) >= 0;
           if (!snackBarVisible) {
             throw FlutterError.fromParts(<DiagnosticsNode>[
               ErrorSummary('Floating SnackBar presented off screen.'),
@@ -1079,7 +1121,8 @@ class _ScaffoldLayout extends MultiChildLayoutDelegate {
     }
 
     if (hasChild(_ScaffoldSlot.statusBar)) {
-      layoutChild(_ScaffoldSlot.statusBar, fullWidthConstraints.tighten(height: minInsets.top));
+      layoutChild(_ScaffoldSlot.statusBar,
+          fullWidthConstraints.tighten(height: minInsets.top));
       positionChild(_ScaffoldSlot.statusBar, Offset.zero);
     }
 
@@ -1106,8 +1149,10 @@ class _ScaffoldLayout extends MultiChildLayoutDelegate {
         oldDelegate.textDirection != textDirection ||
         oldDelegate.floatingActionButtonMoveAnimationProgress !=
             floatingActionButtonMoveAnimationProgress ||
-        oldDelegate.previousFloatingActionButtonLocation != previousFloatingActionButtonLocation ||
-        oldDelegate.currentFloatingActionButtonLocation != currentFloatingActionButtonLocation ||
+        oldDelegate.previousFloatingActionButtonLocation !=
+            previousFloatingActionButtonLocation ||
+        oldDelegate.currentFloatingActionButtonLocation !=
+            currentFloatingActionButtonLocation ||
         oldDelegate.extendBody != extendBody ||
         oldDelegate.extendBodyBehindAppBar != extendBodyBehindAppBar;
   }
@@ -1139,10 +1184,12 @@ class _FloatingActionButtonTransition extends StatefulWidget {
   final AnimationController currentController;
 
   @override
-  _FloatingActionButtonTransitionState createState() => _FloatingActionButtonTransitionState();
+  _FloatingActionButtonTransitionState createState() =>
+      _FloatingActionButtonTransitionState();
 }
 
-class _FloatingActionButtonTransitionState extends State<_FloatingActionButtonTransition>
+class _FloatingActionButtonTransitionState
+    extends State<_FloatingActionButtonTransition>
     with TickerProviderStateMixin {
   // The animations applied to the Floating Action Button when it is entering or exiting.
   // Controls the previous widget.child as it exits.
@@ -1193,7 +1240,8 @@ class _FloatingActionButtonTransitionState extends State<_FloatingActionButtonTr
     }
     final bool oldChildIsNull = oldWidget.child == null;
     final bool newChildIsNull = widget.child == null;
-    if (oldChildIsNull == newChildIsNull && oldWidget.child?.key == widget.child?.key) {
+    if (oldChildIsNull == newChildIsNull &&
+        oldWidget.child?.key == widget.child?.key) {
       return;
     }
     if (_previousController.status == AnimationStatus.dismissed) {
@@ -1245,22 +1293,23 @@ class _FloatingActionButtonTransitionState extends State<_FloatingActionButtonTr
         widget.currentController.drive(_entranceTurnTween);
 
     // Get the animations for when the FAB is moving.
-    final Animation<double> moveScaleAnimation =
-        widget.fabMotionAnimator.getScaleAnimation(parent: widget.fabMoveAnimation);
-    final Animation<double> moveRotationAnimation =
-        widget.fabMotionAnimator.getRotationAnimation(parent: widget.fabMoveAnimation);
+    final Animation<double> moveScaleAnimation = widget.fabMotionAnimator
+        .getScaleAnimation(parent: widget.fabMoveAnimation);
+    final Animation<double> moveRotationAnimation = widget.fabMotionAnimator
+        .getRotationAnimation(parent: widget.fabMoveAnimation);
 
     // Aggregate the animations.
-    _previousScaleAnimation = AnimationMin<double>(moveScaleAnimation, previousExitScaleAnimation);
+    _previousScaleAnimation =
+        AnimationMin<double>(moveScaleAnimation, previousExitScaleAnimation);
     _currentScaleAnimation =
         AnimationMin<double>(moveScaleAnimation, currentEntranceScaleAnimation);
-    _extendedCurrentScaleAnimation =
-        _currentScaleAnimation.drive(CurveTween(curve: const Interval(0.0, 0.1)));
+    _extendedCurrentScaleAnimation = _currentScaleAnimation
+        .drive(CurveTween(curve: const Interval(0.0, 0.1)));
 
-    _previousRotationAnimation =
-        TrainHoppingAnimation(previousExitRotationAnimation, moveRotationAnimation);
-    _currentRotationAnimation =
-        TrainHoppingAnimation(currentEntranceRotationAnimation, moveRotationAnimation);
+    _previousRotationAnimation = TrainHoppingAnimation(
+        previousExitRotationAnimation, moveRotationAnimation);
+    _currentRotationAnimation = TrainHoppingAnimation(
+        currentEntranceRotationAnimation, moveRotationAnimation);
 
     _currentScaleAnimation.addListener(_onProgressChanged);
     _previousScaleAnimation.addListener(_onProgressChanged);
@@ -1321,7 +1370,8 @@ class _FloatingActionButtonTransitionState extends State<_FloatingActionButtonTr
   }
 
   void _onProgressChanged() {
-    _updateGeometryScale(math.max(_previousScaleAnimation.value, _currentScaleAnimation.value));
+    _updateGeometryScale(
+        math.max(_previousScaleAnimation.value, _currentScaleAnimation.value));
   }
 
   void _updateGeometryScale(double scale) {
@@ -1895,9 +1945,11 @@ class TransparentScaffold extends StatefulWidget {
   ///
   ///  * [TransparentScaffold.of], which provides access to the [TransparentScaffoldState] object as a
   ///    whole, from which you can show bottom sheets, and so forth.
-  static bool hasDrawer(BuildContext context, {bool registerForUpdates = true}) {
+  static bool hasDrawer(BuildContext context,
+      {bool registerForUpdates = true}) {
     if (registerForUpdates) {
-      final _ScaffoldScope? scaffold = context.dependOnInheritedWidgetOfExactType<_ScaffoldScope>();
+      final _ScaffoldScope? scaffold =
+          context.dependOnInheritedWidgetOfExactType<_ScaffoldScope>();
       return scaffold?.hasDrawer ?? false;
     } else {
       final TransparentScaffoldState? scaffold =
@@ -1927,8 +1979,10 @@ class TransparentScaffoldState extends State<TransparentScaffold>
 
   // DRAWER API
 
-  final GlobalKey<DrawerControllerState> _drawerKey = GlobalKey<DrawerControllerState>();
-  final GlobalKey<DrawerControllerState> _endDrawerKey = GlobalKey<DrawerControllerState>();
+  final GlobalKey<DrawerControllerState> _drawerKey =
+      GlobalKey<DrawerControllerState>();
+  final GlobalKey<DrawerControllerState> _endDrawerKey =
+      GlobalKey<DrawerControllerState>();
 
   final GlobalKey _bodyKey = GlobalKey();
 
@@ -1979,7 +2033,8 @@ class TransparentScaffoldState extends State<TransparentScaffold>
   }
 
   void _endDrawerOpenedCallback(bool isOpened) {
-    if (_endDrawerOpened.value != isOpened && _endDrawerKey.currentState != null) {
+    if (_endDrawerOpened.value != isOpened &&
+        _endDrawerKey.currentState != null) {
       setState(() {
         _endDrawerOpened.value = isOpened;
       });
@@ -2035,8 +2090,10 @@ class TransparentScaffoldState extends State<TransparentScaffold>
 
   // This is used to update the _messengerSnackBar by the ScaffoldMessenger.
   void _updateSnackBar() {
-    final ScaffoldFeatureController<SnackBar, SnackBarClosedReason>? messengerSnackBar =
-        _scaffoldMessenger!._snackBars.isNotEmpty ? _scaffoldMessenger!._snackBars.first : null;
+    final ScaffoldFeatureController<SnackBar, SnackBarClosedReason>?
+        messengerSnackBar = _scaffoldMessenger!._snackBars.isNotEmpty
+            ? _scaffoldMessenger!._snackBars.first
+            : null;
 
     if (_messengerSnackBar != messengerSnackBar) {
       setState(() {
@@ -2049,12 +2106,14 @@ class TransparentScaffoldState extends State<TransparentScaffold>
 
   // The _messengerMaterialBanner represents the current MaterialBanner being managed by
   // the ScaffoldMessenger, instead of the Scaffold.
-  ScaffoldFeatureController<MaterialBanner, MaterialBannerClosedReason>? _messengerMaterialBanner;
+  ScaffoldFeatureController<MaterialBanner, MaterialBannerClosedReason>?
+      _messengerMaterialBanner;
 
   // This is used to update the _messengerMaterialBanner by the ScaffoldMessenger.
   void _updateMaterialBanner() {
     final ScaffoldFeatureController<MaterialBanner, MaterialBannerClosedReason>?
-        messengerMaterialBanner = _scaffoldMessenger!._materialBanners.isNotEmpty
+        messengerMaterialBanner =
+        _scaffoldMessenger!._materialBanners.isNotEmpty
             ? _scaffoldMessenger!._materialBanners.first
             : null;
 
@@ -2070,7 +2129,8 @@ class TransparentScaffoldState extends State<TransparentScaffold>
   // Contains bottom sheets that may still be animating out of view.
   // Important if the app/user takes an action that could repeatedly show a
   // bottom sheet.
-  final List<_StandardBottomSheet> _dismissedBottomSheets = <_StandardBottomSheet>[];
+  final List<_StandardBottomSheet> _dismissedBottomSheets =
+      <_StandardBottomSheet>[];
   PersistentBottomSheetController<dynamic>? _currentBottomSheet;
   final GlobalKey _currentBottomSheetKey = GlobalKey();
   LocalHistoryEntry? _persistentSheetHistoryEntry;
@@ -2080,10 +2140,12 @@ class TransparentScaffoldState extends State<TransparentScaffold>
       // The new _currentBottomSheet is not a local history entry so a "back" button
       // will not be added to the Scaffold's appbar and the bottom sheet will not
       // support drag or swipe to dismiss.
-      final AnimationController animationController = BottomSheet.createAnimationController(this)
-        ..value = 1.0;
-      bool persistentBottomSheetExtentChanged(DraggableScrollableNotification notification) {
-        if (notification.extent - notification.initialExtent > precisionErrorTolerance) {
+      final AnimationController animationController =
+          BottomSheet.createAnimationController(this)..value = 1.0;
+      bool persistentBottomSheetExtentChanged(
+          DraggableScrollableNotification notification) {
+        if (notification.extent - notification.initialExtent >
+            precisionErrorTolerance) {
           if (_persistentSheetHistoryEntry == null) {
             _persistentSheetHistoryEntry = LocalHistoryEntry(onRemove: () {
               DraggableScrollableActuator.reset(notification.context);
@@ -2091,7 +2153,8 @@ class TransparentScaffoldState extends State<TransparentScaffold>
               _floatingActionButtonVisibilityValue = 1.0;
               _persistentSheetHistoryEntry = null;
             });
-            ModalRoute.of(context)!.addLocalHistoryEntry(_persistentSheetHistoryEntry!);
+            ModalRoute.of(context)!
+                .addLocalHistoryEntry(_persistentSheetHistoryEntry!);
           }
         } else if (_persistentSheetHistoryEntry != null) {
           _persistentSheetHistoryEntry!.remove();
@@ -2103,8 +2166,9 @@ class TransparentScaffoldState extends State<TransparentScaffold>
       // otherwise may cause duplicate GlobalKey assertion if the sheet sub-tree contains
       // GlobalKey widgets.
       if (_dismissedBottomSheets.isNotEmpty) {
-        final List<_StandardBottomSheet> sheets =
-            List<_StandardBottomSheet>.of(_dismissedBottomSheets, growable: false);
+        final List<_StandardBottomSheet> sheets = List<_StandardBottomSheet>.of(
+            _dismissedBottomSheets,
+            growable: false);
         for (final _StandardBottomSheet sheet in sheets) {
           sheet.animationController.reset();
         }
@@ -2180,7 +2244,9 @@ class TransparentScaffoldState extends State<TransparentScaffold>
     bool shouldDisposeAnimationController = true,
   }) {
     assert(() {
-      if (widget.bottomSheet != null && isPersistent && _currentBottomSheet != null) {
+      if (widget.bottomSheet != null &&
+          isPersistent &&
+          _currentBottomSheet != null) {
         throw FlutterError(
           'Scaffold.bottomSheet cannot be specified while a bottom sheet '
           'displayed with showBottomSheet() is still visible.\n'
@@ -2233,7 +2299,9 @@ class TransparentScaffoldState extends State<TransparentScaffold>
     final LocalHistoryEntry? entry = isPersistent
         ? null
         : LocalHistoryEntry(onRemove: () {
-            if (!removedEntry && _currentBottomSheet?._widget == bottomSheet && !doingDispose) {
+            if (!removedEntry &&
+                _currentBottomSheet?._widget == bottomSheet &&
+                !doingDispose) {
               removeCurrentBottomSheet();
             }
           });
@@ -2366,8 +2434,9 @@ class TransparentScaffoldState extends State<TransparentScaffold>
     assert(debugCheckHasMediaQuery(context));
 
     _closeCurrentBottomSheet();
-    final AnimationController controller =
-        (transitionAnimationController ?? BottomSheet.createAnimationController(this))..forward();
+    final AnimationController controller = (transitionAnimationController ??
+        BottomSheet.createAnimationController(this))
+      ..forward();
     setState(() {
       _currentBottomSheet = _buildBottomSheet<T>(
         builder,
@@ -2414,8 +2483,10 @@ class TransparentScaffoldState extends State<TransparentScaffold>
   }
 
   // Moves the Floating Action Button to the new Floating Action Button Location.
-  void _moveFloatingActionButton(final FloatingActionButtonLocation newLocation) {
-    FloatingActionButtonLocation? previousLocation = _floatingActionButtonLocation;
+  void _moveFloatingActionButton(
+      final FloatingActionButtonLocation newLocation) {
+    FloatingActionButtonLocation? previousLocation =
+        _floatingActionButtonLocation;
     double restartAnimationFrom = 0.0;
     // If the Floating Action Button is moving right now, we need to start from a snapshot of the current transition.
     if (_floatingActionButtonMoveController.isAnimating) {
@@ -2445,7 +2516,8 @@ class TransparentScaffoldState extends State<TransparentScaffold>
   // top. We implement this by looking up the primary scroll controller and
   // scrolling it to the top when tapped.
   void _handleStatusBarTap() {
-    final ScrollController? primaryScrollController = PrimaryScrollController.maybeOf(context);
+    final ScrollController? primaryScrollController =
+        PrimaryScrollController.maybeOf(context);
     if (primaryScrollController != null && primaryScrollController.hasClients) {
       primaryScrollController.animateTo(
         0.0,
@@ -2466,11 +2538,12 @@ class TransparentScaffoldState extends State<TransparentScaffold>
   @override
   void initState() {
     super.initState();
-    _geometryNotifier = _ScaffoldGeometryNotifier(const ScaffoldGeometry(), context);
-    _floatingActionButtonLocation =
-        widget.floatingActionButtonLocation ?? _kDefaultFloatingActionButtonLocation;
-    _floatingActionButtonAnimator =
-        widget.floatingActionButtonAnimator ?? _kDefaultFloatingActionButtonAnimator;
+    _geometryNotifier =
+        _ScaffoldGeometryNotifier(const ScaffoldGeometry(), context);
+    _floatingActionButtonLocation = widget.floatingActionButtonLocation ??
+        _kDefaultFloatingActionButtonLocation;
+    _floatingActionButtonAnimator = widget.floatingActionButtonAnimator ??
+        _kDefaultFloatingActionButtonAnimator;
     _previousFloatingActionButtonLocation = _floatingActionButtonLocation;
     _floatingActionButtonMoveController = AnimationController(
       vsync: this,
@@ -2488,17 +2561,20 @@ class TransparentScaffoldState extends State<TransparentScaffold>
   void didUpdateWidget(TransparentScaffold oldWidget) {
     super.didUpdateWidget(oldWidget);
     // Update the Floating Action Button Animator, and then schedule the Floating Action Button for repositioning.
-    if (widget.floatingActionButtonAnimator != oldWidget.floatingActionButtonAnimator) {
-      _floatingActionButtonAnimator =
-          widget.floatingActionButtonAnimator ?? _kDefaultFloatingActionButtonAnimator;
+    if (widget.floatingActionButtonAnimator !=
+        oldWidget.floatingActionButtonAnimator) {
+      _floatingActionButtonAnimator = widget.floatingActionButtonAnimator ??
+          _kDefaultFloatingActionButtonAnimator;
     }
-    if (widget.floatingActionButtonLocation != oldWidget.floatingActionButtonLocation) {
-      _moveFloatingActionButton(
-          widget.floatingActionButtonLocation ?? _kDefaultFloatingActionButtonLocation);
+    if (widget.floatingActionButtonLocation !=
+        oldWidget.floatingActionButtonLocation) {
+      _moveFloatingActionButton(widget.floatingActionButtonLocation ??
+          _kDefaultFloatingActionButtonLocation);
     }
     if (widget.bottomSheet != oldWidget.bottomSheet) {
       assert(() {
-        if (widget.bottomSheet != null && (_currentBottomSheet?._isLocalHistoryEntry ?? false)) {
+        if (widget.bottomSheet != null &&
+            (_currentBottomSheet?._isLocalHistoryEntry ?? false)) {
           throw FlutterError.fromParts(<DiagnosticsNode>[
             ErrorSummary(
               'Scaffold.bottomSheet cannot be specified while a bottom sheet displayed '
@@ -2527,10 +2603,12 @@ class TransparentScaffoldState extends State<TransparentScaffold>
   void didChangeDependencies() {
     // Using maybeOf is valid here since both the Scaffold and ScaffoldMessenger
     // are currently available for managing SnackBars.
-    final ScaffoldMessengerState? currentScaffoldMessenger = ScaffoldMessenger.maybeOf(context);
+    final ScaffoldMessengerState? currentScaffoldMessenger =
+        ScaffoldMessenger.maybeOf(context);
     // If our ScaffoldMessenger has changed, unregister with the old one first.
     if (_scaffoldMessenger != null &&
-        (currentScaffoldMessenger == null || _scaffoldMessenger != currentScaffoldMessenger)) {
+        (currentScaffoldMessenger == null ||
+            _scaffoldMessenger != currentScaffoldMessenger)) {
       _scaffoldMessenger?._unregister(this);
     }
     // Register with the current ScaffoldMessenger, if there is one.
@@ -2678,8 +2756,8 @@ class TransparentScaffoldState extends State<TransparentScaffold>
       removeLeftPadding: false,
       removeTopPadding: widget.appBar != null,
       removeRightPadding: false,
-      removeBottomPadding:
-          widget.bottomNavigationBar != null || widget.persistentFooterButtons != null,
+      removeBottomPadding: widget.bottomNavigationBar != null ||
+          widget.persistentFooterButtons != null,
       removeBottomInset: _resizeToAvoidBottomInset,
     );
     if (_showBodyScrim) {
@@ -2698,9 +2776,11 @@ class TransparentScaffoldState extends State<TransparentScaffold>
     }
 
     if (widget.appBar != null) {
-      final double topPadding = widget.primary ? MediaQuery.paddingOf(context).top : 0.0;
+      final double topPadding =
+          widget.primary ? MediaQuery.paddingOf(context).top : 0.0;
       _appBarMaxHeight =
-          AppBar.preferredHeightFor(context, widget.appBar!.preferredSize) + topPadding;
+          AppBar.preferredHeightFor(context, widget.appBar!.preferredSize) +
+              topPadding;
       assert(_appBarMaxHeight! >= 0.0 && _appBarMaxHeight!.isFinite);
       _addIfNonNull(
         children,
@@ -2743,11 +2823,13 @@ class TransparentScaffoldState extends State<TransparentScaffold>
 
     // SnackBar set by ScaffoldMessenger
     if (_messengerSnackBar != null) {
-      final SnackBarBehavior snackBarBehavior = _messengerSnackBar?._widget.behavior ??
-          themeData.snackBarTheme.behavior ??
-          SnackBarBehavior.fixed;
+      final SnackBarBehavior snackBarBehavior =
+          _messengerSnackBar?._widget.behavior ??
+              themeData.snackBarTheme.behavior ??
+              SnackBarBehavior.fixed;
       isSnackBarFloating = snackBarBehavior == SnackBarBehavior.floating;
-      snackBarWidth = _messengerSnackBar?._widget.width ?? themeData.snackBarTheme.width;
+      snackBarWidth =
+          _messengerSnackBar?._widget.width ?? themeData.snackBarTheme.width;
 
       _addIfNonNull(
         children,
@@ -2756,8 +2838,8 @@ class TransparentScaffoldState extends State<TransparentScaffold>
         removeLeftPadding: false,
         removeTopPadding: true,
         removeRightPadding: false,
-        removeBottomPadding:
-            widget.bottomNavigationBar != null || widget.persistentFooterButtons != null,
+        removeBottomPadding: widget.bottomNavigationBar != null ||
+            widget.persistentFooterButtons != null,
         maintainBottomViewPadding: !_resizeToAvoidBottomInset,
       );
     }
@@ -2765,9 +2847,11 @@ class TransparentScaffoldState extends State<TransparentScaffold>
     bool extendBodyBehindMaterialBanner = false;
     // MaterialBanner set by ScaffoldMessenger
     if (_messengerMaterialBanner != null) {
-      final MaterialBannerThemeData bannerTheme = MaterialBannerTheme.of(context);
-      final double elevation =
-          _messengerMaterialBanner?._widget.elevation ?? bannerTheme.elevation ?? 0.0;
+      final MaterialBannerThemeData bannerTheme =
+          MaterialBannerTheme.of(context);
+      final double elevation = _messengerMaterialBanner?._widget.elevation ??
+          bannerTheme.elevation ??
+          0.0;
       extendBodyBehindMaterialBanner = elevation != 0.0;
 
       _addIfNonNull(
@@ -2878,14 +2962,19 @@ class TransparentScaffoldState extends State<TransparentScaffold>
 
     // The minimum insets for contents of the Scaffold to keep visible.
     final EdgeInsets minInsets = MediaQuery.paddingOf(context).copyWith(
-      bottom: _resizeToAvoidBottomInset ? MediaQuery.viewInsetsOf(context).bottom : 0.0,
+      bottom: _resizeToAvoidBottomInset
+          ? MediaQuery.viewInsetsOf(context).bottom
+          : 0.0,
     );
 
     // The minimum viewPadding for interactive elements positioned by the
     // Scaffold to keep within safe interactive areas.
-    final EdgeInsets minViewPadding = MediaQuery.viewPaddingOf(context).copyWith(
-      bottom:
-          _resizeToAvoidBottomInset && MediaQuery.viewInsetsOf(context).bottom != 0.0 ? 0.0 : null,
+    final EdgeInsets minViewPadding =
+        MediaQuery.viewPaddingOf(context).copyWith(
+      bottom: _resizeToAvoidBottomInset &&
+              MediaQuery.viewInsetsOf(context).bottom != 0.0
+          ? 0.0
+          : null,
     );
 
     // extendBody locked when keyboard is open
@@ -2911,15 +3000,19 @@ class TransparentScaffoldState extends State<TransparentScaffold>
                       extendBodyBehindAppBar: widget.extendBodyBehindAppBar,
                       minInsets: minInsets,
                       minViewPadding: minViewPadding,
-                      currentFloatingActionButtonLocation: _floatingActionButtonLocation!,
+                      currentFloatingActionButtonLocation:
+                          _floatingActionButtonLocation!,
                       floatingActionButtonMoveAnimationProgress:
                           _floatingActionButtonMoveController.value,
-                      floatingActionButtonMotionAnimator: _floatingActionButtonAnimator,
+                      floatingActionButtonMotionAnimator:
+                          _floatingActionButtonAnimator,
                       geometryNotifier: _geometryNotifier,
-                      previousFloatingActionButtonLocation: _previousFloatingActionButtonLocation!,
+                      previousFloatingActionButtonLocation:
+                          _previousFloatingActionButtonLocation!,
                       textDirection: textDirection,
                       isSnackBarFloating: isSnackBarFloating,
-                      extendBodyBehindMaterialBanner: extendBodyBehindMaterialBanner,
+                      extendBodyBehindMaterialBanner:
+                          extendBodyBehindMaterialBanner,
                       snackBarWidth: snackBarWidth,
                     ),
                     children: children,
@@ -2955,7 +3048,8 @@ class _DismissDrawerAction extends DismissAction {
 /// Commonly obtained from [ScaffoldMessengerState.showSnackBar] or
 /// [TransparentScaffoldState.showBottomSheet].
 class ScaffoldFeatureController<T extends Widget, U> {
-  const ScaffoldFeatureController._(this._widget, this._completer, this.close, this.setState);
+  const ScaffoldFeatureController._(
+      this._widget, this._completer, this.close, this.setState);
 
   final T _widget;
   final Completer<U> _completer;
@@ -3121,14 +3215,16 @@ class _StandardBottomSheetState extends State<_StandardBottomSheet> {
           true,
           math.max(
             _kMinBottomSheetScrimOpacity,
-            _kMaxBottomSheetScrimOpacity - scaffold._floatingActionButtonVisibilityValue,
+            _kMaxBottomSheetScrimOpacity -
+                scaffold._floatingActionButtonVisibilityValue,
           ));
     } else {
       scaffold._floatingActionButtonVisibilityValue = 1.0;
       scaffold.showBodyScrim(false, 0.0);
     }
     // If the Scaffold.bottomSheet != null, we're a persistent bottom sheet.
-    if (notification.extent == notification.minExtent && scaffold.widget.bottomSheet == null) {
+    if (notification.extent == notification.minExtent &&
+        scaffold.widget.bottomSheet == null) {
       close();
     }
     return false;
@@ -3141,7 +3237,8 @@ class _StandardBottomSheetState extends State<_StandardBottomSheet> {
       builder: (BuildContext context, Widget? child) {
         return Align(
           alignment: AlignmentDirectional.topStart,
-          heightFactor: animationCurve.transform(widget.animationController.value),
+          heightFactor:
+              animationCurve.transform(widget.animationController.value),
           child: child,
         );
       },
