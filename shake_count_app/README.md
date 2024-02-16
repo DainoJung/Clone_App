@@ -1,16 +1,19 @@
-# shake_count_app
+# 클론 앱
 
-A new Flutter project.
+## shak_count_app
+흔들면 카운트가 올라가는 앱을 만들었습니다.
+<br>
 
-## Getting Started
+>## 사용한 패키지
+- velocity_x
+- native_splash
 
-This project is a starting point for a Flutter application.
+>### 배운 내용
+- 라이선스 형식
+- AppLifecycleState
+<br>
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+>### 구현 화면
+<div align="center">
+  <img width="50%" src="https://github.com/DainoJung/fastcampus-flutter/assets/117745618/36d2d690-94df-4508-beaf-081f7e32d5e9"/>
+</div>
