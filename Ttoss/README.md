@@ -1,16 +1,27 @@
-# fast_app_base
+## Ttoss
+토스앱을 클론해서 만들었습니다.
+<br>
 
-A new Flutter project.
+>## 사용한 패키지
+- get_x
+- velocity_x
+- native_splash
+- timeago
+- change_app_package_name
+- flutter_oss_licenses
 
-## Getting Started
+>## 배운 내용
 
-This project is a starting point for a Flutter application.
+### clean code 작성
+- magic number를 최대한 사용하지 않는다.
+- 규칙적인 파일 이름을 사용한다.
 
-A few resources to get you started if this is your first Flutter project:
+### 상태관리
+get_x를 통한 상태관리에 대해 배웠습니다.
+<br>
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### 플랫폼 분기 처리
+Platform 위젯을 통해 Android, Ios 별로 분기처리 과정을 배웠습니다.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### SharedPreferences
+SharedPreferences를 통해 기기 내부 디스크에 내용을 저장하는 법을 배웠습니다.
