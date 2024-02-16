@@ -1,16 +1,15 @@
-# fast_app_base
+## Todo
+투두앱을 만들었습니다.
+<br>
 
-A new Flutter project.
+>## 사용한 패키지
+- get_x
+- flutter_bloc
+- riverpod
+- velocity_x
 
-## Getting Started
+>## 배운 내용
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### 상태관리
+flutter에서 기본으로 제공되는 Static Model로 상태관리를 해보았고,
+이후 get_x, bloc, riverpod등을 각각 적용해보며 장단점을 비교해 보았습니다.
