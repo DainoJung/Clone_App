@@ -1,6 +1,6 @@
 [![Example CI](https://github.com/DainoJung/fastcampus-flutter/actions/workflows/ci.yml/badge.svg)](https://github.com/DainoJung/fastcampus-flutter/actions/workflows/ci.yml)
 
-# fastcampus-flutter
+# 클론 앱
 
 ## shak_count_app
 흔들면 카운트가 올라가는 앱을 만들었습니다.
