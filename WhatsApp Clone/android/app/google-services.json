@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "323677958273",
+    "project_id": "whatapp-messenger",
+    "storage_bucket": "whatapp-messenger.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:323677958273:android:8c1d990f0eefc220cd1d80",
+        "android_client_info": {
+          "package_name": "com.example.flutter_complete_guide"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "323677958273-selqhvcsee1hog8ikubf0m53u8udb3c2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4dSnIT9dtops1p4VvTvmRm9ZZ4OafISc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "323677958273-selqhvcsee1hog8ikubf0m53u8udb3c2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
